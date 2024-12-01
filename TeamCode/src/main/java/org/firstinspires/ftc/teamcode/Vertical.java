@@ -215,9 +215,9 @@ public class Vertical {
     public void updateAction() {
         // LIFT ACTIONS
         if (opmode.gamepad1.b && opmode.gamepad1.dpad_right) {
-            changeAction("retract");
+            changeAction("scoreUpperBuket");
         } else if (opmode.gamepad1.b && opmode.gamepad1.dpad_left) {
-            changeAction("retract");
+            changeAction("scoreLowerBucket");
 
         } else if (opmode.gamepad1.b && opmode.gamepad1.dpad_up) {
             changeAction("retract");
@@ -226,16 +226,16 @@ public class Vertical {
 
         // SPECIMEN ACTIONS
         else if (opmode.gamepad1.y && opmode.gamepad1.dpad_up) {
-            changeAction("retract");
+            changeAction("placeTopRung");
 
         } else if (opmode.gamepad1.y && opmode.gamepad1.dpad_left) {
-            changeAction("retract");
+            changeAction("placeLowRung");
 
         } else if (opmode.gamepad1.y && opmode.gamepad1.dpad_down) {
-            changeAction("retract");
+            changeAction("pickSpecimen");
 
         } else if (opmode.gamepad1.y && opmode.gamepad1.dpad_right) {
-            changeAction("retract");
+            changeAction("hookSpecimen");
 
         }
     }

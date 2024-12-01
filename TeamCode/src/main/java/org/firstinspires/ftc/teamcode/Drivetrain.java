@@ -1,6 +1,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -51,7 +53,9 @@ public class Drivetrain {
     public void StraferChassis() {
         double turn = getTurn();
         double theta = getDir();
+        //zdouble theta = 0;
         double power = getPower();
+        //power = 0;
 
         double sin = Math.sin(theta - Math.PI / 4);
         double cos = Math.cos(theta - Math.PI / 4);
@@ -64,20 +68,26 @@ public class Drivetrain {
         double rightBack = power * (cos / m) - turn;
 
         if ((power + Math.abs(turn)) > 1) {
-            leftFront /= power + turn;
-            rightFront /= power + turn;
-            leftBack /= power + turn;
-            rightBack /= power + turn;
+            leftFront /= power + Math.abs(turn);
+            rightFront /= power + Math.abs(turn);
+            leftBack /= power + Math.abs(turn);
+            rightBack /= power + Math.abs(turn);
         }
 
-        motor1.setPower(rightFront * 0.5);
-        motor2.setPower(-leftFront * 0.5);
-        motor3.setPower(-leftBack * 0.5);
-        motor4.setPower(rightBack * 0.5);
-
-//        telemetry.addData("theta", theta);
-//        telemetry.addData("power", power);
-//        telemetry.addData("turn", turn);
+        motor1.setPower(-rightFront * 0.5);
+        motor2.setPower(leftFront * 0.5);
+        motor3.setPower(leftBack * 0.5);
+        motor4.setPower(-rightBack * 0.5);
+//Joystick: -1, 0; robot is facing 0,1
+//When joystick is moved to 1,0, robot moves to -1,0
+//
+        opmode.telemetry.addData("theta", theta);
+        opmode.telemetry.addData("power", power);
+        opmode.telemetry.addData("turn", turn);
+        /*motor1.setPower(turn);
+        motor2.setPower(turn);
+        motor3.setPower(turn);
+        motor4.setPower(turn);*/
 
     }
 
@@ -103,6 +113,8 @@ public class Drivetrain {
         double right_stick_angle = Math.atan2(y, x);
 
         double turn = PID(right_stick_angle, heading);
+        opmode.telemetry.addData("rightStickAngle", right_stick_angle);
+        opmode.telemetry.addData("heading", heading);
         return turn;
     }
 
